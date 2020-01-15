@@ -14,41 +14,30 @@ module Enumerable
   def my_select
     selected = []
     self.my_each do |item|
-      if yield(item)
-        selected << item
-      end
+      selected << item if yield(item)
     end
     selected
   end
 
   def my_all?
-    selected = []
     self.my_each do |item|
-      if yield(item)
-        selected << item
-      end
+      return false unless yield(item)
     end
-    selected.length == self.length
+    true
   end
 
   def my_any?
-    selected = []
     self.my_each do |item|
-      if yield(item)
-        selected << item
-      end
+      return true if yield(item)
     end
-    selected.length > 0
+    false
   end
 
   def my_none?
-    selected = []
     self.my_each do |item|
-      if yield(item)
-        selected << item
-      end
+      return false if yield(item)
     end
-    selected.length == 0
+    true
   end
 
   def my_map(proc = nil)
